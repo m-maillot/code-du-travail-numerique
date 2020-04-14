@@ -75,8 +75,9 @@ Register frontend image:
       --build-arg TAG_BASE_IMAGE=$CI_COMMIT_SHA
     IMAGE_NAME: $CI_REGISTRY_IMAGE/frontend
 
-Register data image:
+Register data image (nlp as service):
   <<: *register_stage
+  when: manual
   services:
     - name: docker:19-dind
     - name: $CI_REGISTRY_IMAGE/nlp:$CI_COMMIT_SHA
@@ -84,7 +85,6 @@ Register data image:
   needs:
     - Register nlp image
     - Register socialgouv/cdtn base image
-
   variables:
     CONTEXT: packages/code-du-travail-data
     DOCKER_BUILD_ARGS: >-
@@ -94,6 +94,7 @@ Register data image:
       --network=host
     IMAGE_NAME: $CI_REGISTRY_IMAGE/data
   before_script:
+    - ls -l packages/code-du-travail-nlp
     - |-
       echo "connecting to http://nlp:${NLP_PORT}";
 
@@ -103,5 +104,23 @@ Register data image:
         [[ $(( retry-- )) -gt 0 ]];
       do echo "Waiting for nlp api to be ready ($retry)" ; sleep 1 ; done ;
       [ "$retry" -eq "-1" ] && exit 1
+
+Register data image:
+  <<: *register_stage
+  services:
+    - name: docker:19-dind
+  needs:
+    - job: Register nlp image
+      artifacts: true
+    - Register socialgouv/cdtn base image
+  variables:
+    CONTEXT: packages/code-du-travail-data
+    DOCKER_BUILD_ARGS: >-
+      --build-arg REGISTRY=$CI_REGISTRY_IMAGE
+      --build-arg TAG_BASE_IMAGE=$CI_COMMIT_SHA
+      --build-arg NLP_URL=http://nlp:${NLP_PORT}
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/data
+  before_script:
+    - ls -l packages/code-du-travail-nlp
 
 #
