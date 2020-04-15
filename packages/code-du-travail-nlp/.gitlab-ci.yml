@@ -1,0 +1,24 @@
+#
+
+Install nlp:
+  stage: "Prepare"
+  dependencies: []
+  image: python:3.7-slim-buster
+  interruptible: true
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - ${PIP_CACHE_DIR}
+      - ${PYTHONUSERBASE}
+  variables:
+    CONTEXT: code-du-travail-nlp
+    #
+    PIP_CACHE_DIR: "${CI_PROJECT_DIR}/pip"
+    PYTHONUSERBASE: "${CI_PROJECT_DIR}/python_user_packages"
+  script:
+    - pip install --upgrade pip
+    - pip install --user -r requirements.txt
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - ${PYTHONUSERBASE}
