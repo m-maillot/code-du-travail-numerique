@@ -1,15 +1,16 @@
 #
 
 Build nlp:
-  stage: "Prepare"
+  stage: Prepare
   dependencies: []
   image: python:3.7-slim-buster
   interruptible: true
   variables:
     CONTEXT: code-du-travail-nlp
     #
-    PIP_CACHE_DIR: "${CI_PROJECT_DIR}/pip"
-    PYTHONPATH: "${CI_PROJECT_DIR}/packages/${CONTEXT}"
+    PIP_CACHE_DIR: ${CI_PROJECT_DIR}/pip
+    PYTHONPATH: ${CI_PROJECT_DIR}/packages/${CONTEXT}
+    PATH: ${PATH}:${PYTHONUSERBASE}/bin
   script:
     - cd ./packages/${CONTEXT}
     - pip install --upgrade pip
