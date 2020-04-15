@@ -16,6 +16,7 @@ Install nlp:
     PIP_CACHE_DIR: "${CI_PROJECT_DIR}/pip"
     PYTHONUSERBASE: "${CI_PROJECT_DIR}/python_user_packages"
   script:
+    - cd ./packages/${CONTEXT}
     - pip install --upgrade pip
     - pip install --user -r requirements.txt
   artifacts:
