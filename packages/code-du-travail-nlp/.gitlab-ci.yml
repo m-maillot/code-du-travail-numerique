@@ -9,6 +9,7 @@ Build nlp:
     CONTEXT: code-du-travail-nlp
     #
     PIP_CACHE_DIR: "${CI_PROJECT_DIR}/pip"
+    PYTHONPATH: "${CI_PROJECT_DIR}/packages/${CONTEXT}"
   script:
     - cd ./packages/${CONTEXT}
     - pip install --upgrade pip
