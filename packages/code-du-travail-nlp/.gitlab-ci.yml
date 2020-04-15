@@ -10,9 +10,10 @@ Build nlp:
     #
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/pip
     PYTHONPATH: ${CI_PROJECT_DIR}/packages/${CONTEXT}
-    PATH: ${PATH}:${PYTHONUSERBASE}/bin
+    PYTHONUSERBASE: "${CI_PROJECT_DIR}/python_user_packages"
   script:
     - cd ./packages/${CONTEXT}
+    - export PATH="${PATH}:${PYTHONUSERBASE}/bin"
     - pip install --upgrade pip
     - pip install --user -r requirements.txt
     - python ./scripts/dump.py
