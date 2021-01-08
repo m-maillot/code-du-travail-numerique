@@ -48,7 +48,7 @@ if [[ -n "${PRODUCTION+x}" ]]; then
   export BRANCH_HASH=prod;
   export ES_INDEX_PREFIX="cdtn-prod"
   export K8S_NAMESPACE="cdtn"
-  export DOMAIN="code.travail.fabrique.social.gouv.fr";
+  export DOMAIN="code.travail.gouv.fr";
   export NLP_URL="https://serving-ml.fabrique.social.gouv.fr";
   export AZURE_CONTAINER="cdtn"
 else
