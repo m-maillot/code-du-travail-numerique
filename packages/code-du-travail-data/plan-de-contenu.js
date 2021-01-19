@@ -124,6 +124,8 @@ async function getDocuments() {
   }));
 
   const sources = [
+    SOURCES.CDT,
+    SOURCES.CCN,
     SOURCES.CONTRIBUTIONS,
     SOURCES.EDITORIAL_CONTENT,
     SOURCES.LETTERS,
@@ -188,6 +190,17 @@ async function main() {
   console.log(
     "source,titre,cdtnId,originalId,slug,url,chemin,metaDescription,description"
   );
+
+  console.log(",À propos,,,/a-propos,,,,");
+  console.log(",Le droit du travail,,,/droit-du-travail,,,,");
+  console.log(",Mentions légales,,,/mentions-legales,,,,");
+  console.log(",Politique de confidentialité,,,/politique-confidentialite,,,,");
+  console.log(",Statistiques du Code du travail numérique,,,/stats,,,,");
+  console.log(",Intégrer le Code du travail numérique,,,/integration,,,,");
+  console.log(",Modèles de documents,,,/modeles-de-courriers,,,,");
+  console.log(",Boîte à outils,,,/outils,,,,");
+  console.log(",Glossaire,,,/glossaire,,,,");
+
   console.log(documents.map(toCsv).join(",\n"));
 }
 
