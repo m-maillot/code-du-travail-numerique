@@ -16,6 +16,7 @@ const themesRoute = require("./routes/themes");
 const dossiersRoute = require("./routes/dossiers");
 const glossaryRoute = require("./routes/glossary");
 const versionRoutes = require("./routes/version");
+const entreprisesRoutes = require("./routes/entreprises");
 
 const { logger } = require("./utils/logger");
 
@@ -64,6 +65,7 @@ app.use(themesRoute.routes());
 app.use(dossiersRoute.routes());
 app.use(glossaryRoute.routes());
 app.use(versionRoutes.routes());
+app.use(entreprisesRoutes.routes());
 
 if (process.env.NODE_ENV !== "production") {
   logger.info("-- DEV MODE ---");
