@@ -2,7 +2,7 @@
 import { SOURCES } from "@socialgouv/cdtn-sources";
 import fetch from "node-fetch";
 
-import { createGlossaryTransform } from "./glossary";
+import { addGlossary } from "./glossary";
 import { buildGetBreadcrumbs } from "./breadcrumbs";
 import {
   getAllKaliBlocks,
@@ -86,12 +86,14 @@ async function* cdtnDocumentsGen() {
   const getBreadcrumbs = buildGetBreadcrumbs(themes);
 
   const glossaryTerms = await getGlossary();
-  const addGlossary = createGlossaryTransform(glossaryTerms);
 
   logger.info("=== Editorial contents ===");
   const documents = await getDocumentBySource(SOURCES.EDITORIAL_CONTENT);
   yield {
-    documents: markdownTransform(addGlossary, documents),
+    documents: markdownTransform(
+      (content) => addGlossary(content, glossaryTerms),
+      documents
+    ),
     source: SOURCES.EDITORIAL_CONTENT,
   };
 
@@ -149,7 +151,7 @@ async function* cdtnDocumentsGen() {
         ...answers,
         generic: {
           ...answers.generic,
-          markdown: addGlossary(answers.generic.markdown),
+          markdown: addGlossary(answers.generic.markdown, glossaryTerms),
         },
       },
     })),
@@ -179,7 +181,7 @@ async function* cdtnDocumentsGen() {
           const [theme] = contrib.breadcrumbs;
           return {
             ...data,
-            answer: addGlossary(data.answer),
+            answer: addGlossary(data.answer, glossaryTerms),
             theme: theme && theme.label,
           };
         }),
@@ -210,7 +212,7 @@ async function* cdtnDocumentsGen() {
         delete section.text;
         return {
           ...section,
-          html: addGlossary(html),
+          html: addGlossary(html, glossaryTerms),
         };
       }),
     })),
