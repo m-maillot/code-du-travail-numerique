@@ -2728,6 +2728,19 @@ exports[`<FicheContribution /> should render with external content 1`] = `
                         </label>
                         <label
                           class="c68"
+                          for="radio-enterprise2"
+                        >
+                          <input
+                            class="c69"
+                            id="radio-enterprise2"
+                            name="radio-enterprise2"
+                            type="radio"
+                            value="false"
+                          />
+                          Nom de votre entreprise ou numéro de SIRET / groupé par convention
+                        </label>
+                        <label
+                          class="c68"
                           for="radio-convention"
                         >
                           <input
@@ -5993,6 +6006,19 @@ exports[`<FicheContribution /> should render without external content 1`] = `
                             value="true"
                           />
                           Nom de votre entreprise ou numéro de SIRET
+                        </label>
+                        <label
+                          class="c68"
+                          for="radio-enterprise2"
+                        >
+                          <input
+                            class="c69"
+                            id="radio-enterprise2"
+                            name="radio-enterprise2"
+                            type="radio"
+                            value="false"
+                          />
+                          Nom de votre entreprise ou numéro de SIRET / groupé par convention
                         </label>
                         <label
                           class="c68"
