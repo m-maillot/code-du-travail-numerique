@@ -47,16 +47,22 @@ export const addGlossary = (content, glossaryData) => {
     ]),
   ]);
 
-  const tree = fromMarkdown(content, {
-    extensions: [syntax({ acorn: acorn }), mdxMd],
-    mdastExtensions: [mdxJsx.fromMarkdown],
-  });
+  try {
+    const tree = fromMarkdown(content, {
+      extensions: [syntax({ acorn: acorn }), mdxMd],
+      mdastExtensions: [mdxJsx.fromMarkdown],
+    });
 
-  findAndReplace(tree, valueMap, {
-    //ignore: ["webcomponent-tooltip", "webcomponent-tooltip-cc"],
-  });
+    findAndReplace(tree, valueMap, {
+      //ignore: ["webcomponent-tooltip", "webcomponent-tooltip-cc"],
+    });
 
-  const out = toMarkdown(tree, { extensions: [mdxJsx.toMarkdown] }).trim();
+    const out = toMarkdown(tree, { extensions: [mdxJsx.toMarkdown] }).trim();
 
-  return out;
+    return out;
+  } catch (e) {
+    console.log(`Cannot parse content`, e.message);
+    console.log(content);
+    return content;
+  }
 };

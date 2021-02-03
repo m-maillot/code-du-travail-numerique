@@ -17,7 +17,6 @@ const glossaryData = [
   },
   {
     abbreviations: ["cc"],
-    tagName: "webcomponent-tooltip-cc",
     term: "Convention Collective",
     variants: [
       "convention collective",
@@ -27,6 +26,7 @@ const glossaryData = [
       "disposition conventionnelle",
       "dispositions conventionnelles",
     ],
+    tagName: "webcomponent-tooltip-cc",
   },
 ];
 
